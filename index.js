@@ -1,13 +1,14 @@
+// we need access to the express npm package
 const express = require('express');
 
 // setup express app
 const app = express();
 
-//a client making a making a GET request --  We want to return some data to the client
-app.get('/', function(req, res){
-    console.log('Get request');
-    res.send({name:'Yoshi'});
-})
+// intialize routes
+// to be able to use the routes specified in the api.js file we need to use this line of code
+// "require" imports the api.js route handler file
+// we will require all calls to have the /api/ in the URL
+app.use('/api', require('./routes/api'));
 
 // set up to listen for requests
 app.listen(process.env.PORT || 4000, function() {
