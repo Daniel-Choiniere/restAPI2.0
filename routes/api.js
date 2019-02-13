@@ -22,9 +22,11 @@ router.put('/ninjas/:id', function(req, res){
 });
 
 // delete a ninja from the database
-router.delete('/ninjas:id', function(req, res){
+router.delete('/ninjas/:id', function(req, res){
     res.send({type: 'DELETE'});
 });
 
+// we need to export the file to be able to use the code (route handlers) in a seperate file
 // the router is what is needed to be passed (exported)
+// the file will need to be imported in each necessary subsuquent file
 module.exports = router;
