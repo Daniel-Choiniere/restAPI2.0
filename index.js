@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/ninjago');
 // overrides the deprecated mongoose promoise
 mongoose.Promise = global.Promise;
 
-// parses the body using body-parser package
+// parses the body using body-parser package middleware
 app.use(bodyParser.json())
 
 
@@ -26,6 +26,15 @@ app.use(bodyParser.json())
 // "require" imports the api.js route handler file
 // we will require all calls to have the /api/ in the URL
 app.use('/api', require('./routes/api'));
+
+// ERROR handling middleware (written in our own code)
+app.use(function(err, req, res, next) {
+    // log the error to the console
+    console.log(err);
+    // send the error message and status (i.e. 422) back to the user who made the request so they know there is an issue
+    res.status(422).send({error: err.message});
+});
+
 
 // set up to listen for requests
 app.listen(process.env.PORT || 4000, function() {
