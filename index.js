@@ -5,10 +5,19 @@ const express = require('express');
 // body-parser looks ahead and reads the body and passes the data along with the request
 const bodyParser = require('body-parser')
 
+//we need to access the mongoose npm package 
+const mongoose = require('mongoose');
+
 // setup express app
 const app = express();
 
-// parses the body
+// connect to the mongodb database using mongoose
+// if database directory does not already exist, mongoose will go out and create the database for us
+mongoose.connect('mongodb://localhost/ninjago');
+// overrides the deprecated mongoose promoise
+mongoose.Promise = global.Promise;
+
+// parses the body using body-parser package
 app.use(bodyParser.json())
 
 

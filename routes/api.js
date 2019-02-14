@@ -6,6 +6,9 @@ const express = require('express');
 // we can mount our route handlers onto this router
 const router = express.Router();
 
+// we need to get the Ninja model from our schema file
+const Ninja = require('../models/ninja')
+
 // GET route, get a list of ninjas from the database
 router.get('/ninjas', function(req, res){
     res.send({type: 'GET'});
@@ -13,11 +16,15 @@ router.get('/ninjas', function(req, res){
 
 // POST route, add a new ninja to the database
 router.post('/ninjas', function(req, res){
-    console.log(req.body);
-    res.send({
-        type: 'POST'});
-        name: req.body.name,
-        rank: req.body.rank
+
+    // create a new instance of a ninja record 
+    // get the data off the body of the request 
+    // saves and sends the ninja to the ninjas database
+    //  "then" use a JS promise to wait for the ninja to be completley created before the function moves on and sends the ninja to the database 
+    Ninja.create(req.body).then(function(ninja){
+        // sends a JSON response  back to the user who requested the information so they have a confirmations that data is in the database
+        res.send(ninja);
+    });
 });
 
 // update a ninja in the database
