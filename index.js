@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 
 //we need to access the mongoose npm package 
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 
 // setup express app
 const app = express();
